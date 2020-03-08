@@ -60,9 +60,9 @@ def info(search):
 
         if flag == 1:
             query = "SELECT * FROM movie_data WHERE Title LIKE \'%"+search+"%\'"
-        if flag == 2:
-            query  = "SELECT COUNT(title) AS Movie, AVG(imdbrating) AS imdbR, AVG(Metascore) AS Mscore, to_char(SUM(worldwide), '$999,999,999,999') AS WW, mode() WITHIN GROUP (ORDER BY rated) AS modal_value, mode() WITHIN GROUP (ORDER BY genre) AS genreV, mode() WITHIN GROUP (ORDER BY production) AS prodV, AVG(Runtime) AS RunT FROM movie_data WHERE Director LIKE \'%"+search+"%\'"
         if flag == 3:
+            query  = "SELECT COUNT(title) AS Movie, AVG(imdbrating) AS imdbR, AVG(Metascore) AS Mscore, to_char(SUM(worldwide), '$999,999,999,999') AS WW, mode() WITHIN GROUP (ORDER BY rated) AS modal_value, mode() WITHIN GROUP (ORDER BY genre) AS genreV, mode() WITHIN GROUP (ORDER BY production) AS prodV, AVG(Runtime) AS RunT FROM movie_data WHERE Director LIKE \'%"+search+"%\'"
+        if flag == 2:
             query = "SELECT COUNT(title) AS Movie, AVG(imdbrating) AS imdbR, AVG(Metascore) AS Mscore, to_char(SUM(worldwide), '$999,999,999,999') AS WW, mode() WITHIN GROUP (ORDER BY rated) AS modal_value, mode() WITHIN GROUP (ORDER BY genre) AS genreV, mode() WITHIN GROUP (ORDER BY production) AS prodV, AVG(Runtime) AS RunT FROM movie_data WHERE Actors LIKE \'%"+search+"%\'"
         print(query)
 

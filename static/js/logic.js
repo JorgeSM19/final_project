@@ -220,9 +220,9 @@ function createGraph(itemString, peliculas) {
 //*************************************************************************************************
 //The listener to search Movies, Actor or Directors
 
-var pelis = []
-var actores = []
-var directores = []
+//var pelis = []
+//var actores = []
+//var directores = []
 
 /**
  * Append arrays.
@@ -233,16 +233,16 @@ appendArrays = async function() {
         method: "GET",
     }).then(datos => {
         arregloFinal = []
-        for (var o in datos.Title) {
-            arregloFinal.push(datos.Title[o]);
-        }
-
         for (var o in datos.Actors) {
             arregloFinal.push(datos.Actors[o]);
         }
 
         for (var o in datos.Director) {
             arregloFinal.push(datos.Director[o]);
+        }
+
+        for (var o in datos.Title) {
+            arregloFinal.push(datos.Title[o]);
         }
         return arregloFinal;
     });
@@ -377,7 +377,8 @@ let busqueda = (stringBusqueda) =>
     }).then(datos => {
 
         console.log(datos.resultado);
-        if (datos.flag = 1) {
+        console.log(datos.flag)
+        if (datos.flag === 1) {
             d3.selectAll("#cards").each(function(d, i) {
                 d3.select(this).html(`<div class="container text-center">
                 <div class="row mx-n5 justify-content-md-center miRow ">
@@ -420,16 +421,47 @@ let busqueda = (stringBusqueda) =>
                 </div>
             </div>`);
             });
-        }else if(datos.flag = 2){
-            console.log("holi");
-        }else if(datos.flag =3){
+        }else if(datos.flag === 2){
+            d3.selectAll("#cards").each(function(d, i) {
+                d3.select(this).html(`<div class="container text-center">
+                <div class="row mx-n5 justify-content-md-center miRow">
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d0" style="width: 280px; height: 250px;"><b> Movies made </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][0]}</p></div>
+                    </div>
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d1" style="width: 280px; height: 250px;"><b> Mostly works with </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][6]}</p></div>
+                    </div>
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d2" style="width: 280px; height: 250px;"><b> Total Box Office </b> <br><br> <p style="font-size: 25px;">${datos.resultado[0][3]}</p></div>
+                    </div>
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d3" style="width: 280px; height: 250px;"><b> Metascore </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][2].toFixed(0)}</p></div>
+                    </div>
+                </div>
+                <div class="row mx-n5 justify-content-md-center miRow ">
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d4" style="width: 280px; height: 250px;"><b> Movies mostly Rated </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][4]}</p></div>
+                    </div>
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d5" style="width: 280px; height: 250px;"><b> Mostly chosen Genre </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][5]}</p></div>
+                    </div>
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> imdb Rating </b> <br><br> <p style="font-size: 30px;"> ${datos.resultado[0][1].toFixed(2)}</p></div>
+                    </div>
+                    <div class="col-3 p-2">
+                        <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> Average runtime </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][7].toFixed(0)}</p></div>
+                    </div>
+                </div>
+            </div>`);
+            });
+        }else if(datos.flag === 3){
             console.log("holi");
         }else{
             console.log("nada");
         };
     });
 
-d3.select("#myInput").on("change", function() {
+d3.select("#myInput").on("click", function() {
     let miBusqueda = d3.select("#myInput").node().value
     console.log(miBusqueda);
     busqueda(miBusqueda);
