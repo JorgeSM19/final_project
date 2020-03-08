@@ -10,7 +10,7 @@ import os
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
-engine = create_engine('postgresql://postgres:ximepss030311@localhost:5432/peliculas_db')
+engine = create_engine('postgresql://postgres:1234@localhost:5432/peliculas_db')
 
 data = pd.read_csv("./Resources/ActoresDirectoresPelis.csv")
 pelis = np.asarray(data['Title'])
@@ -50,7 +50,7 @@ def info(search):
         database='peliculas_db',
         user='postgres',
         host='localhost',
-        password='ximepss030311'
+        password='1234'
         )
 
         flag = searchInArrays(search)
