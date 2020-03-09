@@ -17,6 +17,10 @@ pelis = np.asarray(data['Title'])
 actores = np.asarray(data['Actors'])
 directores = np.asarray(data['Director'])
 
+data2 = pd.read_csv("./Resources/baselimpia.csv")
+pelis1 = pd.DataFrame(data2["Title"])
+actores1 = pd.DataFrame(data2["Actores"])
+directores1 = pd.DataFrame(data2["Directores"])
 
 @app.route("/table")
 def table():
@@ -168,12 +172,12 @@ def info(search):
 ################################################# POST method example
  
 def searchInArrays(string):
-    if string in pelis:
+    if string in pelis1:
         return 1
-    if string in actores:
+    if actores1["Actores"][actores1.Actores == string].count()  > directores1["Directores"][directores1.Directores == string].count():
         return 2
-    if string in directores:
+    if actores1["Actores"][actores1.Actores == string].count()  <= directores1["Directores"][directores1.Directores == string].count():
         return 3
-
+        
 if __name__ == "__main__":
     app.run(debug = True)

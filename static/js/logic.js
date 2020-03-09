@@ -413,7 +413,7 @@ let busqueda = (stringBusqueda) =>
                         <div class="p-1 dashboard" id="d5" style="width: 280px; height: 250px;"><b> Rated </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][11]}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> Box Office </b> <br><br> <p style="font-size: 30px;"> $ ${datos.resultado[0][1]}</p></div>
+                        <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> Box Office </b> <br><br> <p style="font-size: 30px;"> $ ${Intl.NumberFormat("en-MX").format(datos.resultado[0][1])}</p></div>
                     </div>
                     <div class="col-3 p-2">
                         <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> MetaScore </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][7]}</p></div>
