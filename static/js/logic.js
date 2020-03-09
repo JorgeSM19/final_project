@@ -220,9 +220,186 @@ function createGraph(itemString, peliculas) {
 //*************************************************************************************************
 //The listener to search Movies, Actor or Directors
 
-//var pelis = []
-//var actores = []
-//var directores = []
+
+var actoresdef = ['John Travolta',
+'Diane Keaton',
+'Gene Hackman',
+'Robert De Niro',
+'Sylvester Stallone',
+'Richard Gere',
+'Dan Aykroyd',
+'Steve Martin',
+'Nick Nolte',
+'Harrison Ford',
+'Jeff Bridges',
+'Robin Williams',
+'Michael Caine',
+'Anthony Hopkins',
+'Meryl Streep',
+'Arnold Schwarzenegger',
+'Dennis Quaid',
+'Christopher Walken',
+'Nicolas Cage',
+'Tommy Lee Jones',
+'Eddie Murphy',
+'Kevin Bacon',
+'Tom Hanks',
+'John Cusack',
+'Susan Sarandon',
+'Kevin Costner',
+'Ed Harris',
+'Danny DeVito',
+'nan',
+'John Goodman',
+'Bruce Willis',
+'Alec Baldwin',
+'Robert Downey Jr.',
+'Morgan Freeman',
+'Nicole Kidman',
+'Denzel Washington',
+'Johnny Depp',
+'Liam Neeson',
+'Harvey Keitel',
+'Samuel L. Jackson',
+'Brad Pitt',
+'Woody Harrelson',
+'Sandra Bullock',
+'Michelle Pfeiffer',
+'Julianne Moore',
+'Mark Wahlberg',
+'Amitabh Bachchan',
+'Salman Khan',
+'Akshay Kumar',
+'Cate Blanchett'];
+var directoresdef = ["Woody Allen",
+"Clint Eastwood",
+"Steven Spielberg",
+"Ron Howard",
+"Spike Lee",
+"Ridley Scott",
+"Steven Soderbergh",
+"Barry Levinson",
+"Joel Schumacher",
+"Tyler Perry",
+"Martin Scorsese",
+"Garry Marshall",
+"Stephen Frears",
+"Oliver Stone",
+"Tim Burton",
+"Jonathan Demme",
+"Rob Reiner",
+"Sidney Lumet",
+"Robert Zemeckis",
+"Michael Apted",
+"Tony Scott",
+"Robert Altman",
+"Walter Hill",
+"Wes Craven",
+"Brian De Palma",
+"Richard Linklater",
+"Bruce Beresford",
+"Ivan Reitman",
+"Michael Ritchie",
+"Roger Donaldson",
+"Chris Columbus",
+"John Landis",
+"Herbert Ross",
+"John Carpenter",
+"Peter Hyams",
+"David Cronenberg",
+"Richard Donner",
+"Renny Harlin",
+"John Badham",
+"Taylor Hackford",
+"Dennis Dugan",
+"John Sayles",
+"Alan Parker",
+"Roland Emmerich",
+"Alan Rudolph",
+"Antoine Fuqua",
+"Ang Lee",
+"Gus Van Sant",
+"Lasse Hallström",
+"Kevin Smith",
+"Donald Petrie",
+"Francis Ford Coppola",
+"Rob Cohen",
+"Kenneth Branagh",
+"François Ozon",
+"Richard Benjamin",
+"John G. Avildsen",
+"Carl Reiner",
+"Michael Bay",
+"Mike Nichols",
+"Blake Edwards",
+"Norman Jewison",
+"James Foley",
+"Stephen Herek",
+"Paul Schrader",
+"Robert Rodriguez",
+"James Ivory",
+"Edward Zwick",
+"Simon Wincer",
+"Phillip Noyce",
+"Mike Figgis",
+"Andrew Davis",
+"Wim Wenders",
+"Harold Ramis",
+"Shawn Levy",
+"Todd Phillips",
+"Luc Besson",
+"Neil Jordan",
+"Sam Raimi",
+"Alan J. Pakula",
+"Paul W.S. Anderson",
+"Bobby Farrelly", 
+"Peter Farrelly",
+"Lawrence Kasdan",
+"Michael Mann",
+"Christopher Cain",
+"Frank Oz",
+"Martin Campbell",
+"Arthur Hiller",
+"Fred Schepisi",
+"David Gordon Green",
+"Curtis Hanson",
+"Roger Michell",
+"Steve Miner",
+"F. Gary Gray",
+"Sydney Pollack",
+"Roger Spottiswoode",
+"Jon Turteltaub",
+"Mike Leigh",
+"J. Lee Thompson",
+"Pedro Almodóvar",
+"Mike Newell",
+"Alex Gibney",
+"David Fincher",
+"Raja Gosnell",
+"Mark Waters",
+"Brett Ratner",
+"John Frankenheimer",
+"Joseph Ruben",
+"Jay Roach",
+"David Lynch",
+"Peter Berg",
+"John McTiernan",
+"Howard Deutch",
+"Peter Yates",
+"Martha Coolidge",
+"Barry Sonnenfeld",
+"Randal Kleiser",
+"Michael Winterbottom",
+"M. Night Shyamalan",
+"Bob Clark",
+"Priyadarshan",
+"Lars von Trier",
+"David Dhawan",
+"Peter Jackson",
+"Jonathan Lynn",
+"Danny Boyle",
+"Bryan Singer",
+"Peter Segal"];
 
 /**
  * Append arrays.
@@ -233,16 +410,8 @@ appendArrays = async function() {
         method: "GET",
     }).then(datos => {
         arregloFinal = []
-        for (var o in datos.Actors) {
-            arregloFinal.push(datos.Actors[o]);
-        }
-
-        for (var o in datos.Director) {
-            arregloFinal.push(datos.Director[o]);
-        }
-
-        for (var o in datos.Title) {
-            arregloFinal.push(datos.Title[o]);
+        for (var o in datos.List) {
+            arregloFinal.push(datos.List[o]);
         }
         return arregloFinal;
     });
@@ -416,7 +585,7 @@ let busqueda = (stringBusqueda) =>
                         <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> Box Office </b> <br><br> <p style="font-size: 30px;"> $ ${Intl.NumberFormat("en-MX").format(datos.resultado[0][1])}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> MetaScore </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][7]}</p></div>
+                        <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> MetaScore </b> <br><br> <p style="font-size: 30px;">${Intl.NumberFormat("en-MX").format(datos.resultado[0][7])}</p></div>
                     </div>
                 </div>
                 <div class="row mx-n5 justify-content-md-center miRow">
@@ -449,7 +618,7 @@ let busqueda = (stringBusqueda) =>
                         <div class="p-1 dashboard" id="d2" style="width: 280px; height: 250px;"><b> Total Box Office </b> <br><br> <p style="font-size: 25px;">${datos.resultado[0][3]}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d3" style="width: 280px; height: 250px;"><b> Metascore </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][2].toFixed(0)}</p></div>
+                        <div class="p-1 dashboard" id="d3" style="width: 280px; height: 250px;"><b> Metascore </b> <br><br> <p style="font-size: 30px;">${Intl.NumberFormat("en-MX").format(datos.resultado[0][2])}</p></div>
                     </div>
                 </div>
                 <div class="row mx-n5 justify-content-md-center miRow ">
@@ -457,13 +626,13 @@ let busqueda = (stringBusqueda) =>
                         <div class="p-1 dashboard" id="d4" style="width: 280px; height: 250px;"><b> Movies mostly Rated </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][4]}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d5" style="width: 280px; height: 250px;"><b> Mostly chosen Genre </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][5]}</p></div>
+                        <div class="p-1 dashboard" id="d5" style="width: 280px; height: 250px;"><b> Top Genre of choice </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][5]}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> imdb Rating </b> <br><br> <p style="font-size: 30px;"> ${datos.resultado[0][1].toFixed(2)}</p></div>
+                        <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> IMDB Rating </b> <br><br> <p style="font-size: 30px;"> ${Intl.NumberFormat("en-MX").format(datos.resultado[0][1])}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> Average runtime </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][7].toFixed(0)}</p></div>
+                        <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> Average runtime </b> <br><br> <p style="font-size: 30px;">${Intl.NumberFormat("en-MX").format(datos.resultado[0][7])}</p></div>
                     </div>
                 </div>
             </div>`);
@@ -482,7 +651,7 @@ let busqueda = (stringBusqueda) =>
                         <div class="p-1 dashboard" id="d2" style="width: 280px; height: 250px;"><b> Total Box Office </b> <br><br> <p style="font-size: 25px;">${datos.resultado[0][3]}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d3" style="width: 280px; height: 250px;"><b> Metascore </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][2].toFixed(0)}</p></div>
+                        <div class="p-1 dashboard" id="d3" style="width: 280px; height: 250px;"><b> Metascore </b> <br><br> <p style="font-size: 30px;">${Intl.NumberFormat("en-MX").format(datos.resultado[0][2])}</p></div>
                     </div>
                 </div>
                 <div class="row mx-n5 justify-content-md-center miRow ">
@@ -490,13 +659,13 @@ let busqueda = (stringBusqueda) =>
                         <div class="p-1 dashboard" id="d4" style="width: 280px; height: 250px;"><b> Movies mostly Rated </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][4]}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d5" style="width: 280px; height: 250px;"><b> Mostly chosen Genre </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][5]}</p></div>
+                        <div class="p-1 dashboard" id="d5" style="width: 280px; height: 250px;"><b> Top Genre of choice </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][5]}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> imdb Rating </b> <br><br> <p style="font-size: 30px;"> ${datos.resultado[0][1].toFixed(2)}</p></div>
+                        <div class="p-1 dashboard" id="d6" style="width: 280px; height: 250px;"><b> IMDB Rating </b> <br><br> <p style="font-size: 30px;"> ${Intl.NumberFormat("en-MX").format(datos.resultado[0][1])}</p></div>
                     </div>
                     <div class="col-3 p-2">
-                        <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> Average runtime </b> <br><br> <p style="font-size: 30px;">${datos.resultado[0][7].toFixed(0)}</p></div>
+                        <div class="p-1 dashboard" id="d7" style="width: 280px; height: 250px;"><b> Average runtime </b> <br><br> <p style="font-size: 30px;">${Intl.NumberFormat("en-MX").format(datos.resultado[0][7])}</p></div>
                     </div>
                 </div>
             </div>`);
@@ -506,8 +675,52 @@ let busqueda = (stringBusqueda) =>
         };
     });
 
-d3.select("#myInput").on("click", function() {
-    let miBusqueda = d3.select("#myInput").node().value
-    console.log(miBusqueda);
-    busqueda(miBusqueda);
-})
+    d3.select("#search1").on("click", function() {
+        let miBusqueda = d3.select("#myInput").node().value
+        console.log(miBusqueda);
+        busqueda(miBusqueda);
+    });
+
+    autocomplete(document.getElementById("calculated"));
+autocomplete(document.getElementById("calculatea"));
+
+d3.select("#predict").on("click", function(){
+    let directorpred = d3.select("#calculated").node().value;
+    let actorpred = d3.select("#calculatea").node().value;
+    let genpred = d3.select("#gencal").node().value;
+    let prediccion = (arrp) =>
+    d3.json(`/pred/${arrp}`, {
+        method: "POST",
+        body: JSON.stringify({
+            arreglop: arrp,
+        }),
+        headers: {
+            "Content-type": "aplication/json"
+        }
+    }).then(datos => {
+        console.log(datos);
+        if(datos.resultado=='0'){
+            console.log("Not success")
+        }else{
+            console.log("Success")
+        }
+    });
+
+    let directorpreddef = null;
+    let actorpreddef = null;
+    if (directoresdef.includes(directorpred)){
+         directorpreddef = directorpred;
+    }else{
+         directorpreddef = 'Otro';
+    };
+
+    if(actoresdef.includes(actorpred)){
+         actorpreddef = actorpred;
+    }else{
+         actorpreddef = 'Otro';
+    }
+
+    arregloprediccion = [directorpreddef,actorpreddef,genpred]
+    prediccion(arregloprediccion)
+
+});
