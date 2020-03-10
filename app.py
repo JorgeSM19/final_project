@@ -39,17 +39,22 @@ def predict(arreglop):
     sp = arreglop.split(",")
     datos = pd.read_csv("./Resources/baselimpia.csv")
     datos.drop(columns = ['Title'], inplace = True)
-    print(datos.dtypes)
+    
     rating = baselimp['imdbRating'].sample().values[0]
+
     if rating>6 :
         ex_noex = 1
     else:
         ex_noex = 0
-    x_rec = [baselimp['Worldwide'].sample().values[0],baselimp['Year'].sample().values[0],baselimp['Country'].sample().values[0],sp[1],sp[0],baselimp['Production'].sample().values[0],baselimp['Rated'].sample().values[0],baselimp['Runtime'].sample().values[0],rating,sp[2],ex_noex]
-    datos.append(x_rec)
+    x_rec = [baselimp['Worldwide'][0],baselimp['Year'][0],baselimp['Country'][0],sp[1],sp[0],baselimp['Production'][0],baselimp['Rated'][0],baselimp['Runtime'][0],baselimp['imdbRating'][0],sp[2],1]
+    #x_rec = [baselimp['Worldwide'].sample().values[0],baselimp['Year'].sample().values[0],baselimp['Country'].sample().values[0],sp[1],sp[0],baselimp['Production'].sample().values[0],baselimp['Rated'].sample().values[0],baselimp['Runtime'].sample().values[0],rating,sp[2],ex_noex]
+    print(len(datos))
+    datos.loc[len(datos)+1] = x_rec
+    print(len(datos))
     X = pd.get_dummies(datos,columns=["Country","Actores","Directores","Production","Rated","Genre"])
     x = X[[col for col in X.columns if col!= "Ex_NoEx"]].values
     x_new = x[-1]
+    print(x[0])
     ynew= modeldef.predict(x_new.reshape(1,-1))
     ynew = str(ynew[0])
     resultado = ynew
